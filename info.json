@@ -1,0 +1,10 @@
+{
+  "name": "SJT-DirtyOre-Remastered",
+  "version": "0.0.1",
+  "factorio_version": "0.16",
+  "title": "SJT Dirty Ores Remastered",
+  "author": "SJT, Kingarthur",
+  "homepage": "https://forums.factorio.com/viewtopic.php?f=94&t=30954",
+  "description": "Adds dynamically created contaminated ores, ore processing, more chemical plants and refineries. Features can be toggled with config file. Should work with (almost) all mod ores. Conditional recipes if bobmods is present. Feature complete 'release candidate'.",
+  "dependencies": ["base >= 0.13.0"]
+}
