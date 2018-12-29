@@ -2,7 +2,7 @@ require "prototypes/buildings-vanilla-extension"
 require "prototypes/buildings"
 require "crafting-item-definitions"
 
-if update_chemical_plant then
+if update_chemical_plant and not mods["angelspetrochem"] then
 	chemical_plant_1_energy_usage	= (calc_energy_usage(chemical_plant_1_speed, 180)).."kW"
 	chemical_plant_1_pollution		= (calc_pollution(chemical_plant_1_speed, 3/250))
 	

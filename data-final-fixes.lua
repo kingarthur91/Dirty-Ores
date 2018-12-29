@@ -7,6 +7,8 @@ if assembling_machine_2_5 then
 end
 
 for k, v in pairs(data.raw.resource) do
+	if v.name ~= "thorium-ore" then
+	
 	tint_buffer = {r=0,g=0,b=0}
 	localised_ore_name_buffer = v.name:gsub("%-", " ")
 
@@ -77,7 +79,30 @@ for k, v in pairs(data.raw.resource) do
 					}
 				end
 			elseif v.minable.results then
-				mining_results_buffer = table_copy(v.minable.results)
+				if v.minable.results.name ~= nil or v.minable.results[1].name then
+				
+				log(serpent.block(v))
+				
+					mining_results_buffer = table_copy(v.minable.results)
+					
+				else
+				
+				log(serpent.block(v))
+					local t = table.deepcopy(data.raw.item[v.minable.results[1][1]].type)
+					
+					mining_results_buffer = 
+					{
+						{
+						type = t, 
+						name = v.minable.results[1][1], 
+						amount_min = 1, 
+						amount_max = 1, 
+						probability = 1
+						}
+					}
+					
+				end
+			
 			else
 			-- this is a default setting if coal appears somewhere it shouldn't something has gone horribly wrong
 		      mining_results_buffer =
@@ -94,12 +119,31 @@ for k, v in pairs(data.raw.resource) do
 			mining_results_buffer_dirty = table_copy(mining_results_buffer)
 			mining_results_buffer_trace = table_copy(mining_results_buffer)
 			for l,w in pairs(mining_results_buffer_dirty) do
-				w.name = "dirty-"..w.name
+				if w.name ~= nil then
+				
+					log(serpent.block(w))
+					w.name = "dirty-"..w.name
+					
+				else
+				
+					w.name = "dirty-"..w[1]
+					
+				end
 			end
 			for l,w in pairs(mining_results_buffer_trace) do
-				w.name = "trace-"..w.name
+			
+				if w.name ~= nil then
+				
+					w.name = "trace-"..w.name
+					
+				else
+				
+					w.name = "trace-"..w[1]
+					
+				end
 			end
 		
+		if not settings.startup["dirty-spawn"].value then
 			data:extend(
 			{
 			  --two new ores
@@ -113,6 +157,10 @@ for k, v in pairs(data.raw.resource) do
 				flags = v.flags,
 			    category = v.category,
 				order = v.order,
+				infinite=false,
+				minimum=999,
+				normal=1000,
+				maximum=3000,
 				minable =
 				{
 				  hardness = v.minable.hardness,
@@ -125,6 +173,7 @@ for k, v in pairs(data.raw.resource) do
 				},
 				collision_box = v.collision_box,
 				selection_box = v.selection_box,
+				autoplace = {},
 				stage_counts = v.stage_counts,
 				stages =
 				{
@@ -141,7 +190,15 @@ for k, v in pairs(data.raw.resource) do
 				},
 				map_color = v.map_color
 			  },
-
+			  }
+			  )
+			  
+		end
+		
+		if not settings.startup["trace-spawn"].value then
+			  
+			  data:extend(
+			{
 			  {
 				localised_name = "trace "..localised_ore_name_buffer,  -- can't use v.localised_name. it appears that this property is not generated at this point of time, it's a pitty
 				type = "resource",
@@ -151,7 +208,7 @@ for k, v in pairs(data.raw.resource) do
 				flags = v.flags,
 			    category = v.category,
 				order = v.order,
-				infinite=true,
+				infinite=false,
 				minimum=999,
 				normal=1000,
 				maximum=3000,
@@ -181,6 +238,230 @@ for k, v in pairs(data.raw.resource) do
 				map_color = v.map_color
 			  },
 			})
+			
+		end
+		
+		if settings.startup["dirty-spawn"].value then
+			
+			data:extend(
+			{
+			  --two new ores
+			  {
+--				localised_name = "dirty "..v.name,  -- can't use v.localised_name. it appears that this property is not generated at this point of time, it's a pitty
+				localised_name = "dirty "..localised_ore_name_buffer,
+				type = "resource",
+				name = "dirty-" .. v.name,
+				icon = v.icon,
+				icon_size = 32,
+				flags = v.flags,
+			    category = v.category,
+				order = v.order,
+				infinite=false,
+				minimum=999,
+				normal=1000,
+				maximum=3000,
+				minable =
+				{
+				  hardness = v.minable.hardness,
+				  mining_particle = v.mining_particle,
+				  mining_time = v.minable.mining_time*1.1,
+				  --result = "dirty-" .. v.name		-- using v.minable.result yields an error: attempt to concatenate field 'result' (a nil value). strange just using v.minable.result makes the original ore drop
+				  -- results = v.minable.results,
+				  -- result = v.minable.result
+				  results = mining_results_buffer_dirty
+				},
+				collision_box = v.collision_box,
+				selection_box = v.selection_box,
+				autoplace =
+								 {
+									control = "dirty-" .. v.name,
+									sharpness = 1,
+									richness_multiplier = 1500,
+									richness_multiplier_distance_bonus = 30,
+									richness_base = 500,
+									coverage = 0.02,
+									peaks = {
+									   {
+										  noise_layer = "dirty-" .. v.name,
+										  noise_octaves_difference = -1.5,
+										  noise_persistence = 0.3,
+										  starting_area_weight_optimal = 1,
+										  starting_area_weight_range = 0,
+										  starting_area_weight_max_range = 2,
+									   },
+									   {
+										  noise_layer = "dirty-" .. v.name,
+										  noise_octaves_difference = -2,
+										  noise_persistence = 0.3,
+										  starting_area_weight_optimal = 0,
+										  starting_area_weight_range = 0,
+										  starting_area_weight_max_range = 2,
+									   },
+									   {
+										  influence = 0.15,
+										  starting_area_weight_optimal = 0,
+										  starting_area_weight_range = 0,
+										  starting_area_weight_max_range = 2,
+									   }
+									}
+								 },
+				stage_counts = v.stage_counts,
+				stages =
+				{
+				  sheet =
+				  {
+					filename = v.stages.sheet.filename,
+					priority = "extra-high",
+					tint = v.stages.sheet.tint,
+					width = v.stages.sheet.width,
+					height = v.stages.sheet.height,
+					frame_count = v.stages.sheet.frame_count,
+					variation_count = v.stages.sheet.variation_count
+				  }
+				},
+				map_color = v.map_color
+			  }
+			  }
+			  )
+			  
+			  end
+			  
+			  if settings.startup["trace-spawn"].value then
+			  
+			  data:extend(
+			  {
+			  {
+				localised_name = "trace "..localised_ore_name_buffer,  -- can't use v.localised_name. it appears that this property is not generated at this point of time, it's a pitty
+				type = "resource",
+				name = "trace-" .. v.name,
+				icon = v.icon,
+				icon_size = 32,
+				flags = v.flags,
+			    category = v.category,
+				order = v.order,
+				infinite=true,
+				minimum=999,
+				normal=1000,
+				maximum=3000,
+				minable =
+				{
+				  hardness = v.minable.hardness,
+				  mining_particle = v.mining_particle,
+				  mining_time = v.minable.mining_time*1.2,
+				  results = mining_results_buffer_trace
+				  },
+				collision_box = v.collision_box,
+				selection_box = v.selection_box,
+				autoplace =
+								 {
+									control = "trace-" .. v.name,
+									sharpness = 1,
+									richness_multiplier = 1500,
+									richness_multiplier_distance_bonus = 30,
+									richness_base = 500,
+									coverage = 0.02,
+									peaks = {
+									   {
+										  noise_layer = "trace-" .. v.name,
+										  noise_octaves_difference = -1.5,
+										  noise_persistence = 0.3,
+										  starting_area_weight_optimal = 1,
+										  starting_area_weight_range = 0,
+										  starting_area_weight_max_range = 2,
+									   },
+									   {
+										  noise_layer = "trace-" .. v.name,
+										  noise_octaves_difference = -2,
+										  noise_persistence = 0.3,
+										  starting_area_weight_optimal = 0,
+										  starting_area_weight_range = 0,
+										  starting_area_weight_max_range = 2,
+									   },
+									   {
+										  influence = 0.15,
+										  starting_area_weight_optimal = 0,
+										  starting_area_weight_range = 0,
+										  starting_area_weight_max_range = 2,
+									   }
+									}
+								 },
+				stage_counts = v.stage_counts,
+				stages =
+				{
+				  sheet =
+				  {
+					filename = v.stages.sheet.filename,
+					priority = "extra-high",
+					tint = v.stages.sheet.tint,
+					width = v.stages.sheet.width,
+					height = v.stages.sheet.height,
+					frame_count = v.stages.sheet.frame_count,
+					variation_count = v.stages.sheet.variation_count				
+				  }
+				},
+				map_color = v.map_color
+			  },
+			})
+			
+		end
+			
+			local dName = "dirty-" .. v.name
+			local tName = "trace-" .. v.name
+			
+				if settings.startup["infinite-dirty"].value then
+				
+					data.raw.resource[dName].infinite = true
+				
+				end
+				
+				if settings.startup["infinite-trace"].value then
+				
+					data.raw.resource[tName].infinite = true
+					
+				end
+				
+				if settings.startup["dirty-spawn"].value then
+
+					data:extend(
+					{
+						{
+						localised_name = dName,
+						 type = "autoplace-control",
+						 name = dName,
+						 richness = true,
+						 order = "b-e",
+						 category = "resource"
+						 },
+						 {
+						 type = "noise-layer",
+						 name = dName
+						 },
+					}
+					)
+					
+				end
+				
+				if settings.startup["trace-spawn"].value then
+						 
+					data:extend(
+					{
+						 {
+						 localised_name = tName,
+						 type = "autoplace-control",
+						 name = tName,
+						 richness = true,
+						 order = "b-e",
+						 category = "resource"
+						 },
+						 {
+						 type = "noise-layer",
+						 name = tName
+						 }
+					}
+					)
+					
+				end
+				
 			for l,w in pairs(mining_results_buffer) do
 				localised_item_name_buffer = v.name:gsub("%-", " ")
 				for m, x in pairs(item_names) do
@@ -304,7 +585,8 @@ for k, v in pairs(data.raw.resource) do
 							},
 						})
 					end
-				else -- if it is a fluid
+				elseif w.type == "fluid" then -- if it is a fluid
+				--log(serpent.block(w))
 					if not data.raw["fluid"]["dirty"..w.name] then
 						data:extend(
 						{
@@ -396,13 +678,14 @@ for k, v in pairs(data.raw.resource) do
 
 		end
 	end
+	end
 end
 
 for k, v in pairs(ore_blacklist) do
 	data.raw["recipe"]["process-dirty-"..v].enabled = false
 	data.raw["recipe"]["process-trace-"..v].enabled = false
 end
-	
+
 -- <kyranf> to understand lua syntax for "pairs" what it does is each iteration,
 --  "k" is the "key" which could be a number, or anything actually,
 -- used as the unique key for that entry in whatever table you passed into the pairs() section
