@@ -67,6 +67,9 @@ for k, v in pairs(data.raw.resource) do
 				if (type(v.minable.result) == "table") then
 	  				mining_results_buffer[1] = table_copy(v.minable.result)
 				else
+				log(serpent.block(v))
+				log(v.name)
+					if not mods["fws"] then
 					mining_results_buffer =		-- yes without [1] as there are two curly braces
 					{
 						{
@@ -77,6 +80,7 @@ for k, v in pairs(data.raw.resource) do
 						  probability = does_exist(v.probability)
 						}
 					}
+					end
 				end
 			elseif v.minable.results then
 				if v.minable.results.name ~= nil or v.minable.results[1].name then
