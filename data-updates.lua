@@ -10,9 +10,9 @@ if update_chemical_plant and not mods["angelspetrochem"] then
 	data.raw["assembling-machine"]["chemical-plant"].energy_source.emissions = chemical_plant_1_pollution
 	data.raw["assembling-machine"]["chemical-plant"].energy_usage = chemical_plant_1_energy_usage
 	--data.raw["recipe"]["chemical-plant"].ingredients[1][2] = data.raw["assembling-machine"]["chemical-plant"].ingredients[1][2]*4/5
-	for k, v in pairs(data.raw["recipe"]["chemical-plant"].ingredients) do
-		v[2] = v[2]*4/5
-	end
+	--for k, v in pairs(data.raw["recipe"]["chemical-plant"].ingredients) do
+		--v[2] = v[2]*4/5
+	--end
 end
 
 if recipe_change_assembling_machine_3 then

@@ -67,8 +67,8 @@ for k, v in pairs(data.raw.resource) do
 				if (type(v.minable.result) == "table") then
 	  				mining_results_buffer[1] = table_copy(v.minable.result)
 				else
-				log(serpent.block(v))
-				log(v.name)
+				--log(serpent.block(v))
+				--log(v.name)
 					if not mods["fws"] then
 					mining_results_buffer =		-- yes without [1] as there are two curly braces
 					{
@@ -85,13 +85,13 @@ for k, v in pairs(data.raw.resource) do
 			elseif v.minable.results then
 				if v.minable.results.name ~= nil or v.minable.results[1].name then
 				
-				log(serpent.block(v))
+				--log(serpent.block(v))
 				
 					mining_results_buffer = table_copy(v.minable.results)
 					
 				else
 				
-				log(serpent.block(v))
+				--log(serpent.block(v))
 					local t = table.deepcopy(data.raw.item[v.minable.results[1][1]].type)
 					
 					mining_results_buffer = 
@@ -125,7 +125,7 @@ for k, v in pairs(data.raw.resource) do
 			for l,w in pairs(mining_results_buffer_dirty) do
 				if w.name ~= nil then
 				
-					log(serpent.block(w))
+					--log(serpent.block(w))
 					w.name = "dirty-"..w.name
 					
 				else
