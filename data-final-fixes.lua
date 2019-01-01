@@ -495,7 +495,7 @@ for k, v in pairs(data.raw.resource) do
 								type = "recipe",
 								name = "process-dirty-"..w.name,
 								enabled = "true",
-								category = "dirty-ore-processing",
+								category = "oil-processing",
 								energy_required = 1,
 								ingredients =
 								{
@@ -545,7 +545,7 @@ for k, v in pairs(data.raw.resource) do
 								type = "recipe",
 								name = "process-trace-"..w.name,
 								enabled = "true",
-								category = "dirty-ore-processing",	-- this is due to bad naming conventions i choose in the beginning should really have named it gravity-processing and chemical-processing or sth. like that
+								category = "oil-processing",	-- this is due to bad naming conventions i choose in the beginning should really have named it gravity-processing and chemical-processing or sth. like that
 								energy_required = 1,
 								ingredients =
 								{
@@ -568,7 +568,7 @@ for k, v in pairs(data.raw.resource) do
 								type = "recipe",
 								name = "process-trace-"..w.name.."-powder",
 								enabled = "true",
-								category = "trace-ore-processing",
+								category = "oil-processing",
 								energy_required = 1,
 								ingredients =
 								{

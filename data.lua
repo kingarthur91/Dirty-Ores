@@ -4,10 +4,10 @@ require "prototypes/liquids"
 require "SJT_library"
 require "prototypes/technologies"
 
---TODO: add settings for infinite ore types.
---TODO: add settings to and non normal ores types to spawn
---TODO: compatibilty. pymods compatibilty will be in pycoaltbaa. angels and bobs will remain as internal to dirty-ores
---TODO: create infinite ore gen code
+--TODO: add settings for infinite ore types.:DONE
+--TODO: add settings to and non normal ores types to spawn:DONE
+--TODO: compatibilty. pymods compatibilty will be in pycoaltbaa. angels and bobs will remain as internal to dirty-ores:DONE AND LIES
+--TODO: create infinite ore gen code :DONE
 --TODO: adjust ore spawn to lower spawn rate of normal ores
 
 if dev_mode then

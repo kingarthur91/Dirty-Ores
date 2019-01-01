@@ -1,5 +1,5 @@
 require "config"
-
+--[[
 data:extend({
 	{
 		type = "technology",
@@ -195,6 +195,8 @@ data:extend({
 		}
 	},
 })
+
+]]--
 if assembling_machine_2_5 then
 	data:extend({
 		{

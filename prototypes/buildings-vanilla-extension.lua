@@ -361,7 +361,7 @@ data:extend({
     icon = "__base__/graphics/icons/oil-refinery.png",
 	icon_size = 32,
     flags = {"placeable-neutral","player-creation"},
-    minable = {mining_time = 1, result = "oil-refinery"},
+    minable = {mining_time = 1, result = "oil-refinery-2"},
     max_health = 300,
     corpse = "big-remnants",
     dying_explosion = "medium-explosion",
@@ -513,7 +513,7 @@ data:extend({
     icon = "__base__/graphics/icons/oil-refinery.png",
 	icon_size = 32,
     flags = {"placeable-neutral","player-creation"},
-    minable = {mining_time = 1, result = "oil-refinery"},
+    minable = {mining_time = 1, result = "oil-refinery-3"},
     max_health = 300,
     corpse = "big-remnants",
     dying_explosion = "medium-explosion",
@@ -667,55 +667,56 @@ data:extend({
     icon = "__base__/graphics/icons/chemical-plant.png",
 	icon_size = 32,
     flags = {"placeable-neutral","placeable-player", "player-creation"},
-    minable = {hardness = 0.2, mining_time = 0.5, result = "chemical-plant"},
+    minable = {hardness = 0.2, mining_time = 0.5, result = "chemical-plant-2"},
     max_health = 300,
     corpse = "big-remnants",
     dying_explosion = "medium-explosion",
-    collision_box = {{-1.4, -1.4}, {1.4, 1.4}},
+    collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
     selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
+    drawing_box = {{-1.5, -1.9}, {1.5, 1.5}},
     module_specification =
     {
       module_slots = 3
     },
     allowed_effects = {"consumption", "speed", "productivity", "pollution"},
-    animation =
+    
+    animation = make_4way_animation_from_spritesheet({ layers =
     {
-      north =
       {
         filename = "__base__/graphics/entity/chemical-plant/chemical-plant.png",
-        width = 156,
-        height = 141,
+        width = 122,
+        height = 134,
         frame_count = 1,
-        shift = {0.5, -0.078125}
+        shift = util.by_pixel(-5, -4.5),
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/chemical-plant/hr-chemical-plant.png",
+          width = 244,
+          height = 268,
+          frame_count = 1,
+          shift = util.by_pixel(-5, -4.5),
+          scale = 0.5
+          }
       },
-      west =
       {
-        filename = "__base__/graphics/entity/chemical-plant/chemical-plant.png",
-        x = 468,
-        width = 156,
-        height = 141,
+        filename = "__base__/graphics/entity/chemical-plant/chemical-plant-shadow.png",
+        width = 175,
+        height = 110,
         frame_count = 1,
-        shift = {0.5, -0.078125}
-      },
-      south =
-      {
-        filename = "__base__/graphics/entity/chemical-plant/chemical-plant.png",
-        x = 312,
-        width = 156,
-        height = 141,
-        frame_count = 1,
-        shift = {0.5, -0.078125}
-      },
-      east =
-      {
-        filename = "__base__/graphics/entity/chemical-plant/chemical-plant.png",
-        x = 156,
-        width = 156,
-        height = 141,
-        frame_count = 1,
-        shift = {0.5, -0.078125}
+        shift = util.by_pixel(31.5, 11),
+        draw_as_shadow = true,
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/chemical-plant/hr-chemical-plant-shadow.png",
+          width = 350,
+          height = 219,
+          frame_count = 1,
+          shift = util.by_pixel(31.5, 10.75),
+          draw_as_shadow = true,
+          scale = 0.5
+          }
       }
-    },
+    }}),
     working_visualisations =
     {
       {
@@ -844,7 +845,7 @@ data:extend({
         }
       },
       idle_sound = { filename = "__base__/sound/idle1.ogg", volume = 0.6 },
-      apparent_volume = 1.5,
+      apparent_volume = 1.5
     },
     crafting_speed = chemical_plant_2_speed,
     energy_source =
@@ -903,56 +904,57 @@ data:extend({
     icon = "__base__/graphics/icons/chemical-plant.png",
 	icon_size = 32,
     flags = {"placeable-neutral","placeable-player", "player-creation"},
-    minable = {hardness = 0.2, mining_time = 0.5, result = "chemical-plant"},
+    minable = {hardness = 0.2, mining_time = 0.5, result = "chemical-plant-2"},
     max_health = 300,
     corpse = "big-remnants",
     dying_explosion = "medium-explosion",
-    collision_box = {{-1.4, -1.4}, {1.4, 1.4}},
+    collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
     selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
+    drawing_box = {{-1.5, -1.9}, {1.5, 1.5}},
     module_specification =
     {
       module_slots = 4
     },
     allowed_effects = {"consumption", "speed", "productivity", "pollution"},
-    animation =
+   
+    animation = make_4way_animation_from_spritesheet({ layers =
     {
-      north =
       {
         filename = "__base__/graphics/entity/chemical-plant/chemical-plant.png",
-        width = 156,
-        height = 141,
+        width = 122,
+        height = 134,
         frame_count = 1,
-        shift = {0.5, -0.078125}
+        shift = util.by_pixel(-5, -4.5),
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/chemical-plant/hr-chemical-plant.png",
+          width = 244,
+          height = 268,
+          frame_count = 1,
+          shift = util.by_pixel(-5, -4.5),
+          scale = 0.5
+          }
       },
-      west =
       {
-        filename = "__base__/graphics/entity/chemical-plant/chemical-plant.png",
-        x = 468,
-        width = 156,
-        height = 141,
+        filename = "__base__/graphics/entity/chemical-plant/chemical-plant-shadow.png",
+        width = 175,
+        height = 110,
         frame_count = 1,
-        shift = {0.5, -0.078125}
-      },
-      south =
-      {
-        filename = "__base__/graphics/entity/chemical-plant/chemical-plant.png",
-        x = 312,
-        width = 156,
-        height = 141,
-        frame_count = 1,
-        shift = {0.5, -0.078125}
-      },
-      east =
-      {
-        filename = "__base__/graphics/entity/chemical-plant/chemical-plant.png",
-        x = 156,
-        width = 156,
-        height = 141,
-        frame_count = 1,
-        shift = {0.5, -0.078125}
+        shift = util.by_pixel(31.5, 11),
+        draw_as_shadow = true,
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/chemical-plant/hr-chemical-plant-shadow.png",
+          width = 350,
+          height = 219,
+          frame_count = 1,
+          shift = util.by_pixel(31.5, 10.75),
+          draw_as_shadow = true,
+          scale = 0.5
+          }
       }
-    },
-	working_visualisations =
+    }}),
+    working_visualisations =
     {
       {
         north_position = util.by_pixel(30, -24),
@@ -1080,7 +1082,7 @@ data:extend({
         }
       },
       idle_sound = { filename = "__base__/sound/idle1.ogg", volume = 0.6 },
-      apparent_volume = 1.5,
+      apparent_volume = 1.5
     },
     crafting_speed = chemical_plant_3_speed,
     energy_source =

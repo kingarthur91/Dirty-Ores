@@ -20,7 +20,7 @@ data:extend(
 	type = "recipe",
 	name = "clear-water-no-product",
 	enabled = "true",
-	category = "waste-water-clearing",
+	category = "chemistry",
 	energy_required = 5,
 	ingredients =
 	{
@@ -40,7 +40,7 @@ data:extend(
 	type = "recipe",
 	name = "clear-water",
 	enabled = "true",
-	category = "waste-water-clearing",
+	category = "chemistry",
 	energy_required = 5,
 	ingredients =
 	{
@@ -60,7 +60,7 @@ data:extend(
 	type = "recipe",
 	name = "dispose-waste-water",
 	enabled = "true",
-	category = "waste-water-disposal",
+	category = "chemistry",
 	energy_required = 5,
 	ingredients =
 	{
